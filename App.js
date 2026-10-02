@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js - navigation lives here
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
+import HomeScreen from "./screens/HomeScreen";
+import PokemonListScreen from "./screens/PokemonListScreen";
+import PokemonDetailsScreen from "./screens/PokemonDetailsScreen";
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: { backgroundColor: "#E3350D" },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: { fontWeight: "800" },
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="List" component={PokemonListScreen} options={{ title: "All Pokémon" }} />
+        <Stack.Screen name="Details" component={PokemonDetailsScreen} options={{ title: "Pokémon Details" }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
